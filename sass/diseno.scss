@@ -1,0 +1,468 @@
+// Importaciones
+@import "variables.scss";
+
+
+// Codigo para el Modo Nocturno
+body {
+  background-color: #fff;
+  transition: all .3s ease-in-out;
+  
+  &.mod-night { // Clase añadida con JScript
+    background-color: #000;
+    color: white;
+  }
+}
+
+
+// Codigo para eliminar el margin generado por Bootstrap
+h1, h2, h3, h4, h5, h6, p, ul {
+  margin-bottom: 0;
+}
+
+
+// Modo Nocturno
+.mod-switch {
+  position: fixed; // Importante para el maquetado
+  z-index: 20;
+  top: 24px;
+  left: 15px;
+  width: 60px;
+  background-color: fade-out(black, .5);
+  display: flex; // Imporatnte para el centrado de los iconos
+  justify-content: space-around;
+  height: 30px;
+  align-items: center;
+  border-radius: 10%;
+  box-shadow: 0 0 2rem 0 rgba(255, 255, 255, 0.363);
+  cursor: pointer;
+
+  &:after {
+    content: "";
+    display: block; // Importante para poder desplazar la rueda dando click
+    width: 30px;
+    height: 30px; // Codigo para definir ancho y alto de la caja
+    border-radius: 100%;
+    position: absolute; // Importante para definir si la ruedita empieza a la der o izq
+    top: 0; // Complemento de absolute para ubicar la ruedita
+    left: 0; // Codigo para posicionar la ruedita a la izquierda
+    right: unset; // Importante quitar la ruedita de la derecha
+    background-color: white;
+    transition: all .3s ease;
+    box-shadow: 0 0 .5rem 0 rgba(0, 0, 0, .2); // Importante darle sombra a la ruedita
+  }
+
+  &.active-mod { // Clase Agregada con Jscript
+    background-color: orange; // Codigo para el modo dia 
+
+    &:after {
+      left: unset; // Importante quitar la ruedita de la izquierda
+      right: 0; // Codigo para posicionar la ruedita a la derecha  
+    }
+  }
+
+  i { 
+    color: white;
+  }
+}
+
+
+// Icono del menu de navegacion
+.icon-x {
+  position: fixed; // Codigo para fijar el icon menu
+  right: 15px; // Codigo para desplazar el icon menu a la derecha solo funciona con PX
+  top: 15px; 
+  z-index: 999;
+  background-color: fade-out(black, .5);
+  padding: 14px 10px; // Codigo para darle contorno al icono
+  box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 0.363);
+  cursor: pointer;
+
+  // Clase JQuery para transformar el menu en X
+  &.transform-x .line:nth-child(2) {
+    opacity: 0;  // Forma en que se desvanece la linea-2 en su transformacion
+  }   
+  &.transform-x .line:nth-child(1) {
+    transform: translateY(10px) rotate(-45deg);  // Desplazamieno de la linea-1 
+  } 
+  &.transform-x .line:nth-child(3) {
+    transform: translateY(-6px) rotate(45deg);  // Desplazamieno de la linea-3 
+  }      
+
+  .line {
+    width: 28px;
+    height: 4px;
+    background-color: white;
+    display: block;  // Imporatnte para mostrar el icono-x
+    border-radius: 10px;
+    transition: all .3s ease-in-out; // Velocidad del icon-x en transformarse
+
+    &.line:nth-child(2) {
+      margin: 4px 0;  // Agregamos solamente margen a la linea-2
+    }
+  }
+}
+
+
+// Menu de Navegacion
+nav { 
+  position: fixed;
+  right: 0; // Codigo que pone el menu 100% a la derecha
+  width: 250px;
+  height: 100%; // Codigo que toma el 100% de alto de la pagina
+  background: #007BFF;
+  z-index: 2;
+  border-left: 1px solid rgba(255, 255, 255, 0.363);
+  transform: translateX(250px); // Codigo que desaparece el menu de navegacion a la derecha
+  transition: all 0.4s ease 0s;
+
+  // Clase JQuery para hacer aparecer el menu
+  &.nav-show {
+    right: 250px;
+    transition: all 0.4s ease 0s;
+  }
+    
+  ul { 
+    list-style: none;
+    padding-left: 0;
+      
+    h2 { 
+      color: white;
+      height: 80px; // Con height y line height con los mismos valores 
+      line-height: 80px; // logramos centrar verticalmente
+      padding-left: 1rem;
+      background-color: rgba(255, 255, 255, 0.050);
+      box-shadow: 0 .2rem 1rem 0 rgba(204, 204, 204, 0.37);
+    }
+      
+    li {
+      padding: 1rem;
+
+      &:hover {
+        background: fade-out(#ccc, .5);
+        cursor: pointer;
+      }
+          
+      a {
+        text-decoration: none !important;
+        color: white;
+        display: block;
+        letter-spacing: 2px;
+
+        &:hover {
+          color: white;
+        }
+      }
+    }  
+  }
+}
+
+
+// Section Header
+header {
+  padding: $margen-sections;
+  text-align: center;
+  background: linear-gradient(90deg, fade-out(black, 0.6) 0%, fade-out(white, 0.6) 100%), url('../img/img-min-1.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 3rem 0 #ccc;
+
+  .content-text {
+
+    h2 {
+      font-size: 4rem;
+    }
+
+    h3 {
+      margin: 0 0 2.5rem;
+    }
+
+    .btn {
+      @include design-btn();
+
+      // Clase agregada con JQuery
+      &.icon-fx {
+        @include icon-fx();
+      }
+    }   
+  }
+}
+@media (min-width: 992px) {
+  header {
+
+    .content-text {
+
+      h2 {
+        font-size: 5rem;
+      }
+    }
+  }   
+}
+
+
+// Section About
+.section-about {
+  padding: $margen-sections;
+  text-align: center;
+
+  h2 {
+    margin-bottom: .5rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    @include design-btn();
+
+    // Clase agregada con JQuery
+    &.icon-fx {
+      @include icon-fx();
+    }
+  }
+}
+
+
+// Section Services
+.section-service {
+  background-color: $color_first;
+
+  .container {
+    padding: $margen-sections;
+
+    .content-service {
+      color: white;
+      text-align: center;
+
+      h5 {
+        font-weight: 700;
+        color: #EA4335;
+        letter-spacing: .2rem;
+      }
+    }
+
+    .service-flex {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+
+      div {
+        color: white;
+        text-align: center;
+
+        i {
+          font-size: 4rem;
+        }
+
+        h4 {
+          padding: .6rem 0;
+        }
+      }
+    }
+  }
+}
+
+
+// Section Download
+.section-download {
+  padding: $margen-sections;
+  background: linear-gradient(90deg, fade-out(black, 0.6) 0%, fade-out(white, 0.6) 100%), url('../img/img-min-1.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  text-align: center;
+  box-shadow: 0 0 3rem 0 #ccc;
+
+  h2 {
+    font-size: 3.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .btn {
+    @include design-btn();
+
+    // Clase agregada con JQuery
+    &.icon-fx {
+      @include icon-fx();
+    }
+  }
+}
+
+
+// Section Portafolio
+.section-portafolio { 
+  padding: $margen-sections;
+    
+  .content-img {
+    display: flex; // Codigo para poner las sections en linea
+    flex-wrap: wrap; // Codigo para fracturar las secciones y poner una debajo de otra
+
+    div {
+      
+      .portfolio-item {
+        
+        // Contenedor de el caption utilizado para centrar horizontal y vertical el texto
+        .caption {
+          position: absolute; // Codigo para sacar del plano y ponerlo de mascara
+          width: 100%; // Codigo para igualar al ancho del contenedor
+          z-index: 1;
+          display: flex; // Centrado vertical y horizontal
+          justify-content: center;
+          height: 100%;
+          align-items: center;
+
+          .caption-content {
+            color: white;
+            
+            p {
+              font-weight: 300;
+              font-size: 1.2rem;
+            }
+          }  
+        }
+
+        img {
+          width: 100%;
+          height: 90%;
+        }
+      }
+    }
+  }
+}
+@media(min-width: 992px) {
+  .section-portafolio {
+
+    .content-img {
+      margin: 0 5rem;
+
+      div {
+
+        .portfolio-item {
+
+          &:hover {
+
+            .caption { // es el div que se usa para encoger
+              clip-path: inset(2rem); // Codigo para reducir el contenedor
+              transition: clip-path 0.25s ease-out, background-color 0.7s;
+              
+  
+              .caption-content {
+                background-color: fade-out(black, 0.6); // Codigo para agregar color de fondo al hacer hover 
+                transition: all .3s ease;
+                box-shadow: 0 0 1rem 0 rgb(231, 216, 12);
+              }
+            }
+
+            img {
+              clip-path: inset(2rem); // Codigo para reducir la imagen al hacer hover
+              transition: clip-path .3s ease-out, background-color 0.7s; // Velocidad de reduccion
+            }
+          }
+
+          .caption {
+            clip-path: inset(0px); // Codigo para reducir el contenedor
+            transition: clip-path 0.25s ease-out, background-color 0.7s;
+
+            .caption-content {
+              width: 100%; // Codigo para dar el ancho total de la img 
+              text-align: center;
+              padding: 2rem 0;
+            }
+          }
+
+          img {
+            height: 100%;
+            clip-path: inset(-1px); // Codigo que reduce la img
+            transition: clip-path 0.25s ease-out; // Velocidad al salir del hover
+          }
+        }  
+      } 
+    }
+  }
+}
+
+
+// Section Click
+.section-info {
+  padding: $margen-sections;
+  text-align: center;
+  background-color: $color_first;
+
+  h2 {
+    color: white;
+    padding-bottom: 2rem;
+  }
+
+  .btn {
+    @include design-btn();
+    background-color: $color_second;
+
+    // Clase añadida con JQuery
+    &.icon-fx {
+      @include icon-fx();
+    }
+  }
+}    
+
+
+// Section Map
+.content-map {
+  height: 480px;
+  box-shadow: 0 0 3rem 0 #ccc;
+}
+  
+
+// Section Footer
+footer {
+  text-align: center;
+  padding: 5rem 0;
+
+  a {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    border-radius: 100%;
+    background-color: $first_hover;
+    color: white;
+    font-size: 1.4rem;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      color: white;
+      background-color: $color_first;
+      box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.664);
+      transition: all .3s ease-in-out;
+    }
+  }
+}
+
+
+// Btn Top
+.btn-top {
+  position: fixed;
+  right: 15px;
+  bottom: 15px;
+  width: 48px;
+  height: 48px;
+  line-height: 54px;
+  text-align: center;
+  color: transparent; // Codigo para ocultar el icono en el modo noche
+  background-color: transparent; // Importante para ocultar el Go-top
+  cursor: pointer;
+  transition: all .3s ease;
+
+  &.btn-show {
+    color: white;
+    background-color: fade-out(black, .5); // Importante para mostrar el Go-top al hacer scroll
+    transition: all .3s ease;
+    box-shadow: 0 0 1rem 0 rgba(255, 255, 255, 0.363);
+  }
+
+  i {
+    font-size: 1.6rem;
+  }
+}

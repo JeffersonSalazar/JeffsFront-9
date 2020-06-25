@@ -1,0 +1,48 @@
+// Colors
+$color_first : #007BFF;
+$first_hover : rgb(74, 158, 250);
+$color_second : #343a40;
+$color_three : #bcbec0;
+
+// Sizes 
+$size_btn : 1.25rem 2.5rem;
+$margen-sections : 8rem 0;
+
+// Mixin
+@mixin design-btn {
+    color: white;
+    background-color: $color_first;
+    width: 150px;
+    padding: 1rem 0;
+    display: inline-block; // importante para que los botones tomen propiedades de bloque
+    position: relative; // importante para que los iconos aparezcan en los botones
+    box-shadow: 0 0 1rem 0 rgb(71, 73, 71);
+}
+
+@mixin icon-fx {
+    transition: all .3s linear; // Codigo para que el texto del boton se despalze suave
+    
+    &:before {
+        content: "+";
+        position: absolute; // sacamos de la maquetacion el icono para posicionarlo
+        top: 0;
+        height: 100%;
+        right: -100%; // Codigo que desaparece la mascara del icono
+        width: 100%; // Importante para que la amscara tenga el mismo ancho del boton
+        line-height: 50px;
+        font-size: 1.6rem;
+        color: transparent;
+        background-color: transparent;
+        transition: all .3s linear;
+    }
+    
+    &:hover {
+        color: transparent; // Importante para desaparecer el texto cuando se sobreponga el icono
+    
+        &:before {
+            right: 0;
+            background-color: rgba(#fff,0.3);
+            color: white; // Codigo importn¡ante para que el icono se pueda ver
+        }
+    }
+}
